@@ -43,5 +43,7 @@ public class CreateUserRequest {
 	@NotNull
 	@Size(min = 4, max = 16)
 	private String password;
+	
+	private int birthDate;
 
 }

@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.kodlamaio.rentACar.business.abstracts.UserCheckService;
 import com.kodlamaio.rentACar.business.abstracts.UserService;
 import com.kodlamaio.rentACar.business.request.users.CreateUserRequest;
 import com.kodlamaio.rentACar.business.response.cars.GetAllCarsResponse;
@@ -31,13 +32,21 @@ public class UserManager implements UserService {
 	UserRepository userRepository;
 	@Autowired
 	ModelMapperService modelMapperService;
-
+	@Autowired
+	UserCheckService userCheckService;
 	@Override
 	public Result add(CreateUserRequest createUserRequest) {
 		checkIfUserExistsByNationalityId(createUserRequest.getNationality());
+		
 		User user = this.modelMapperService.forRequest().map(createUserRequest, User.class);
-		this.userRepository.save(user);
-		return new SuccessResult("ADDED.USER");
+		if(userCheckService.checkIfRealPerson(user)) {
+			this.userRepository.save(user);
+			return new SuccessResult("ADDED.USER");
+		}
+		else {
+			throw new BusinessException("COULD.NOT.USER.ADDED");
+			}
+		
 	}
 
 	@Override
