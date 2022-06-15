@@ -58,6 +58,9 @@ public class Car {
 
 	@Column(name = "plate")
 	private String plate;
+	
+	@Column(name = "min_findex")
+	private int minFindex;
 
 	@Min(0)
 	@Column(name = "kilometer")
