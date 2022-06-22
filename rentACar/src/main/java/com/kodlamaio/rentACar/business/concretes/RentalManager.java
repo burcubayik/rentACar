@@ -65,7 +65,7 @@ public class RentalManager implements RentalService {
 		}
 		if (checkFindexValue(car.getMinFindex(), user.getNationality())) {
 			this.rentalRepository.save(rental);
-			return new SuccessResult("ADDED.RENTAL");
+			return new SuccessResult("ADDED.RENTAL"); 
 		} else {
 			throw new BusinessException("NOT.ENOUGH.FİNDEX.SCORE");
 		}

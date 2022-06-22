@@ -1,7 +1,10 @@
 package com.kodlamaio.rentACar.business.concretes;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.management.loading.PrivateClassLoader;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,13 +41,13 @@ public class AdditionalManager implements AdditionalService {
 	@Override
 	public Result add(CreateAdditionalRequest createAdditionalRequest) {
 
-		AdditionalItem additionalItem = this.additionalItemRepository
-				.getById(createAdditionalRequest.getAdditionalItemId());
-		Rental rental = this.rentalRepository.getById(createAdditionalRequest.getRentalId());
-		rental.setTotalPrice(rental.getTotalPrice() + (rental.getTotalDays() * additionalItem.getDailyPrice()));
-		rental.setId(createAdditionalRequest.getRentalId());
 		Additional additional = this.modelMapperService.forRequest().map(createAdditionalRequest, Additional.class);
-
+		LocalDate date = createAdditionalRequest.getPickupDate();
+		additional.setPickupDate(date);
+		LocalDate returnvalue = date.plusDays(createAdditionalRequest.getTotalDays());
+		additional.setReturnedDate(returnvalue);
+		double additionalItemTotalPrice = this.additionalItemRepository.getById(createAdditionalRequest.getAdditionalItemId()).getDailyPrice();
+		additional.setTotalPrice(additionalItemTotalPrice*createAdditionalRequest.getTotalDays());
 		this.additionalRepository.save(additional);
 		return new SuccessResult("ADDED.ADDITIONAL");
 	}
@@ -76,6 +79,7 @@ public class AdditionalManager implements AdditionalService {
 		Additional additional = this.additionalRepository.getById(id);
 		ReadAdditionalResponse response = this.modelMapperService.forResponse().map(additional,
 				ReadAdditionalResponse.class);
+		
 		return new SuccessDataResult<ReadAdditionalResponse>(response);
 	}
 
@@ -85,8 +89,10 @@ public class AdditionalManager implements AdditionalService {
 		List<GetAllAdditionalsResponse> response = additionals.stream().map(
 				additional -> this.modelMapperService.forResponse().map(additional, GetAllAdditionalsResponse.class))
 				.collect(Collectors.toList());
+		
 
 		return new SuccessDataResult<List<GetAllAdditionalsResponse>>(response);
 	}
+	
 
 }

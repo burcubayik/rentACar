@@ -1,5 +1,7 @@
 package com.kodlamaio.rentACar.business.request.additionals;
 
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,5 +12,8 @@ import lombok.NoArgsConstructor;
 public class CreateAdditionalRequest {
 	private int additionalItemId;
 	private int rentalId;
+	private int totalDays;
+	private LocalDate pickupDate;
+	
 
 }

@@ -1,5 +1,8 @@
 package com.kodlamaio.rentACar.entities.concretes;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -33,5 +37,16 @@ public class Additional {
 	@ManyToOne
 	@JoinColumn(name = "rental_id")
 	private Rental rental;
+	
+	@Column(name = "total_price")
+	private double totalPrice;
+	
+	@Column(name = "total_days")
+	private int totalDays;
+	
+	@Column(name = "pickup_date")
+	private LocalDate pickupDate;
 
+	@Column(name = "returned_date")
+	private LocalDate returnedDate;
 }
