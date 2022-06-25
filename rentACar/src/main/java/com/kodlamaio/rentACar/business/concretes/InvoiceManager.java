@@ -15,10 +15,10 @@ import com.kodlamaio.rentACar.core.utilities.results.DataResult;
 import com.kodlamaio.rentACar.core.utilities.results.Result;
 import com.kodlamaio.rentACar.core.utilities.results.SuccessDataResult;
 import com.kodlamaio.rentACar.core.utilities.results.SuccessResult;
-import com.kodlamaio.rentACar.dataAccess.abstracts.AdditionalRepository;
+import com.kodlamaio.rentACar.dataAccess.abstracts.OrderedAdditionalItemRepository;
 import com.kodlamaio.rentACar.dataAccess.abstracts.InvoiceRepository;
 import com.kodlamaio.rentACar.dataAccess.abstracts.RentalRepository;
-import com.kodlamaio.rentACar.entities.concretes.Additional;
+import com.kodlamaio.rentACar.entities.concretes.OrderedAdditionalItem;
 import com.kodlamaio.rentACar.entities.concretes.Invoice;
 import com.kodlamaio.rentACar.entities.concretes.Rental;
 
@@ -31,7 +31,7 @@ public class InvoiceManager implements InvoiceService {
 	private RentalRepository rentalRepository;
 
 	@Autowired
-	private AdditionalRepository additionalRepository;
+	private OrderedAdditionalItemRepository additionalRepository;
 
 	@Autowired
 	private ModelMapperService modelMapperService;
@@ -71,7 +71,7 @@ public class InvoiceManager implements InvoiceService {
 
 	private double sumAdditionalTotalPrice(int id) {
 		double result = 0;
-		for (Additional additional : additionalRepository.getByRentalId(id)) {
+		for (OrderedAdditionalItem additional : additionalRepository.getByRentalId(id)) {
 
 			result += additional.getTotalPrice();
 		}

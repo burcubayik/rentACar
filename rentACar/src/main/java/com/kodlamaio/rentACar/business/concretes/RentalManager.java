@@ -30,7 +30,7 @@ import com.kodlamaio.rentACar.entities.concretes.User;
 
 @Service
 public class RentalManager implements RentalService {
-
+//constructor kullan
 	@Autowired
 	RentalRepository rentalRepository;
 	@Autowired
@@ -46,8 +46,8 @@ public class RentalManager implements RentalService {
 
 	@Override
 	public Result add(CreateRentalRequest createRentalRequest) {
-		Car car = this.carRepository.getById(createRentalRequest.getCarId());
-		User user = this.userRepository.getById(createRentalRequest.getUserId());
+		Car car = this.carRepository.findById(createRentalRequest.getCarId()).get(); //findById
+		User user = this.userRepository.findById(createRentalRequest.getUserId()).get();
 
 		car.setState(3);
 		Rental rental = this.modelMapperService.forRequest().map(createRentalRequest, Rental.class);
@@ -55,7 +55,7 @@ public class RentalManager implements RentalService {
 		LocalDate date = createRentalRequest.getPickupDate();
 		rental.setPickupDate(date);
 		LocalDate returnvalue = date.plusDays(createRentalRequest.getTotalDays());
-		rental.setReturnedDate(returnvalue);
+		rental.setReturnDate(returnvalue);
 
 		rental.setTotalPrice(createRentalRequest.getTotalDays() * car.getDailyPrice());// hesaplattırılacak
 
@@ -82,7 +82,7 @@ public class RentalManager implements RentalService {
 		LocalDate date = updateRentalRequest.getPickupDate();
 		rental.setPickupDate(date);
 		LocalDate returnvalue = date.plusDays(updateRentalRequest.getTotalDays());
-		rental.setReturnedDate(returnvalue);
+		rental.setReturnDate(returnvalue);
 
 		rental.setTotalPrice(updateRentalRequest.getTotalDays() * car.getDailyPrice());// hesaplattırılacak
 

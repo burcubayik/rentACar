@@ -9,14 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.Size;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","cars"})
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

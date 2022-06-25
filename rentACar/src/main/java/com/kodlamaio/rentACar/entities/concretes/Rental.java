@@ -14,13 +14,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler", "cars","cities","additionals","invoice" })
 @Entity
 @Data
 @NoArgsConstructor
@@ -35,8 +31,8 @@ public class Rental {
 	@Column(name = "pickup_date")
 	private LocalDate pickupDate;
 
-	@Column(name = "returned_date")
-	private LocalDate returnedDate;
+	@Column(name = "return_date")
+	private LocalDate returnDate;
 
 	@Column(name = "total_days")
 	private int totalDays;
@@ -49,15 +45,15 @@ public class Rental {
 	private Car car;
 	
 	@ManyToOne
-    @JoinColumn(name = "pick_up_city_id", referencedColumnName = "id")
+    @JoinColumn(name = "pick_up_city_id") //aynı tablodan
     private City pickUpCity;
 
     @ManyToOne
-    @JoinColumn(name = "return_city_id", referencedColumnName = "id")
+    @JoinColumn(name = "return_city_id")
     private City returnCity;
     
     @OneToMany(mappedBy = "rental")
-	List<Additional> additionals;
+	List<OrderedAdditionalItem> orderedAdditionalItems;
     
     @ManyToOne
     @JoinColumn(name="user_id")

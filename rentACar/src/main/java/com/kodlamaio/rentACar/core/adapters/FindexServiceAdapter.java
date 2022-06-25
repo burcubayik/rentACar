@@ -6,7 +6,6 @@ import java.util.Random;
 import org.springframework.stereotype.Service;
 
 import com.kodlamaio.rentACar.business.abstracts.FindexService;
-import com.kodlamaio.rentACar.entities.concretes.User;
 @Service
 public class FindexServiceAdapter implements FindexService {
 	Random random = new Random();

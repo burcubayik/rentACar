@@ -22,30 +22,30 @@ import lombok.NoArgsConstructor;
 public class User {
 	@Id()
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@Column(name = "id")
 	private int id;
-	
+
 	@Column(name = "first_name")
 	private String firstName;
-	
+
 	@Column(name = "last_name")
 	private String lastName;
-	
+
 	@Column(name = "nationality")
 	private String nationality;
-	
+
 	@Column(name = "email")
 	private String email;
-	
+
 	@Column(name = "password")
 	private String password;
-	
+
 	@Column(name = "birth_date")
 	private int birthDate;
-	
-	@OneToMany (mappedBy = "user")
+
+	@OneToMany(mappedBy = "user")
 	private List<Rental> rentals;
-	
+
 	@OneToMany(mappedBy = "user")
 	private List<Address> addresses;
 
