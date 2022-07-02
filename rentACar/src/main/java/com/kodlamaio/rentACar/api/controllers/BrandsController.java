@@ -30,6 +30,12 @@ public class BrandsController {
 
 	@Autowired
 	private BrandService brandService;
+	
+
+	public BrandsController(BrandService brandService) {
+		
+		this.brandService = brandService;
+	}
 
 	// endpoint
 	@GetMapping("/sayhello")

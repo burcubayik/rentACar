@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeleteAdditionalRequest {
+public class DeleteOrderedAdditionalItemRequest {
 	private int id;
 }

@@ -26,16 +26,25 @@ import com.kodlamaio.rentACar.entities.concretes.Brand;
 public class BrandManager implements BrandService {
 
 	// Git constructor parametresine bak git onu newle bana onu ver.
-	@Autowired
+	
 	private BrandRepository brandRepository;
+	private ModelMapperService modelMapperService; 
+	
 	@Autowired
-	private ModelMapperService modelMapperService;
+	public BrandManager(BrandRepository brandRepository, ModelMapperService modelMapperService) {
+		
+		this.brandRepository = brandRepository;
+		this.modelMapperService = modelMapperService;
+	}
+
+	
+	
 
 	@Override
 	public Result add(CreateBrandRequest createBrandRequest) {
 		// mapping
-		checkIfBrandExitsByName(createBrandRequest.getName());
-		Brand brand = this.modelMapperService.forRequest().map(createBrandRequest, Brand.class);
+		checkIfBrandExistsByName(createBrandRequest.getName());
+		Brand brand =convertCreateToEntity(createBrandRequest);
 		this.brandRepository.save(brand);
 		return new SuccessResult("BRAND.ADDED");
 
@@ -43,6 +52,9 @@ public class BrandManager implements BrandService {
 
 	@Override
 	public Result update(UpdateBrandRequest updateBrandRequest) {
+		checkIfBrandExistsByName(updateBrandRequest.getName());
+		checkIfBrandExistsById(updateBrandRequest.getId());
+		
 		Brand brand = this.modelMapperService.forRequest().map(updateBrandRequest, Brand.class);
 
 		this.brandRepository.save(brand);
@@ -52,6 +64,7 @@ public class BrandManager implements BrandService {
 
 	@Override
 	public Result delete(DeleteBrandRequest deleteBrandRequest) {
+		checkIfBrandExistsById(deleteBrandRequest.getId());
 
 		Brand brand = this.modelMapperService.forRequest().map(deleteBrandRequest, Brand.class);
 
@@ -62,7 +75,7 @@ public class BrandManager implements BrandService {
 
 	@Override
 	public DataResult<ReadBrandResponse> getById(int id) {
-		Brand brand = this.brandRepository.getById(id);
+		Brand brand = checkIfBrandExistsById(id);
 		ReadBrandResponse readBrandResponse = this.modelMapperService.forResponse().map(brand, ReadBrandResponse.class);
 		return new SuccessDataResult<ReadBrandResponse>(readBrandResponse);
 	}
@@ -77,11 +90,34 @@ public class BrandManager implements BrandService {
 		return new SuccessDataResult<List<GetAllBrandsResponse>>(response);
 	}
 
-	private void checkIfBrandExitsByName(String name) {
+	private void checkIfBrandExistsByName(String name) {
 		Brand currentBrand = this.brandRepository.findByName(name);
 		if (currentBrand != null) {
-			throw new BusinessException("BRAND.EXITS");
+			throw new BusinessException("BRAND.EXISTS");
 		}
+	}
+	private Brand checkIfBrandExistsById(int id) {
+		Brand currentBrand;
+		try {
+			currentBrand = this.brandRepository.findById(id).get();
+		} catch (Exception e) {
+			throw new BusinessException("BRAND.NOT.EXİSTS");
+		}
+		return currentBrand;
+	}
+
+
+
+
+	@Override
+	public Brand getBrandById(int id) {
+		
+		return checkIfBrandExistsById(id);
+	}
+	
+	private Brand convertCreateToEntity(CreateBrandRequest createBrandRequest) {
+	return Brand.builder().name(createBrandRequest.getName()).build();
+		
 	}
 
 }

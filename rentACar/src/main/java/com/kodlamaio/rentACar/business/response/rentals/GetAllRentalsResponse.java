@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetAllRentalResponse {
+public class GetAllRentalsResponse {
 	private LocalDate pickupDate;
 	private LocalDate returnedDate;
 	private int totalDays;

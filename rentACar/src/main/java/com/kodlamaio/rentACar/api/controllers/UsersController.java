@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kodlamaio.rentACar.business.abstracts.UserService;
 import com.kodlamaio.rentACar.business.request.users.CreateUserRequest;
-import com.kodlamaio.rentACar.business.response.rentals.GetAllRentalResponse;
+import com.kodlamaio.rentACar.business.response.rentals.GetAllRentalsResponse;
 import com.kodlamaio.rentACar.business.response.users.GetAllUserResponse;
 import com.kodlamaio.rentACar.core.utilities.results.DataResult;
 import com.kodlamaio.rentACar.core.utilities.results.Result;

@@ -13,9 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UpdateColorRequest {
 	private int id;
-	@NotEmpty
 	@NotBlank
-	@NotEmpty
 	@Size(min = 2)
 	private String name;
 

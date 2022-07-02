@@ -13,7 +13,7 @@ import com.kodlamaio.rentACar.business.abstracts.UserCheckService;
 import com.kodlamaio.rentACar.business.abstracts.UserService;
 import com.kodlamaio.rentACar.business.request.users.CreateUserRequest;
 import com.kodlamaio.rentACar.business.response.cars.GetAllCarsResponse;
-import com.kodlamaio.rentACar.business.response.rentals.GetAllRentalResponse;
+import com.kodlamaio.rentACar.business.response.rentals.GetAllRentalsResponse;
 import com.kodlamaio.rentACar.business.response.users.GetAllUserResponse;
 import com.kodlamaio.rentACar.core.utilities.exceptions.BusinessException;
 import com.kodlamaio.rentACar.core.utilities.mapping.ModelMapperService;
@@ -28,30 +28,28 @@ import com.kodlamaio.rentACar.entities.concretes.User;
 
 @Service
 public class UserManager implements UserService {
-	@Autowired
-	UserRepository userRepository;
-	@Autowired
 	ModelMapperService modelMapperService;
+	UserRepository userRepository;
+
 	@Autowired
-	UserCheckService userCheckService;
+	public UserManager(UserRepository userRepository, ModelMapperService modelMapperService) {
+		super();
+		this.userRepository = userRepository;
+		this.modelMapperService = modelMapperService;
+	}
+
 	@Override
 	public Result add(CreateUserRequest createUserRequest) {
-		checkIfUserExistsByNationalityId(createUserRequest.getNationality());
-		
 		User user = this.modelMapperService.forRequest().map(createUserRequest, User.class);
-		if(userCheckService.checkIfRealPerson(user)) {
-			this.userRepository.save(user);
-			return new SuccessResult("ADDED.USER");
-		}
-		else {
-			throw new BusinessException("COULD.NOT.USER.ADDED");
-			}
-		
+
+		this.userRepository.save(user);
+		return new SuccessResult("ADDED.USER");
+
 	}
 
 	@Override
 	public DataResult<List<GetAllUserResponse>> getAll(Integer pageNumber, Integer pageSize) {
-		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
 
 		List<User> users = this.userRepository.findAll(pageable).getContent();
 		List<GetAllUserResponse> response = users.stream()
@@ -60,13 +58,4 @@ public class UserManager implements UserService {
 
 		return new SuccessDataResult<List<GetAllUserResponse>>(response);
 	}
-
-	private void checkIfUserExistsByNationalityId(String nationality) {
-		User currentNationalityId = this.userRepository.findByNationality(nationality);
-		if (currentNationalityId != null) {
-			throw new BusinessException("USER.EXİST");
-		}
-
-	}
-
 }

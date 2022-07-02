@@ -31,8 +31,8 @@ public class Address {
 	private String billAddress;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private User user;
+	@JoinColumn(name = "customer_id")
+	private Customer customer;
 	
 	
 	

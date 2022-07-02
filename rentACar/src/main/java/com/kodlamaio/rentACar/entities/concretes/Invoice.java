@@ -25,7 +25,7 @@ public class Invoice {
 	private int id;
 
 	@Column(name = "invoice_number")
-	private int invoiceNumber;
+	private String invoiceNumber;
 
 	@Column(name = "total_price")
 	private double totalPrice;

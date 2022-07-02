@@ -15,6 +15,7 @@ public class GetAllCarsResponse {
 	private String plate;
 	private int kilometer;
 	private int colorId;
-	private int brandId;
+	private String brandName;
+	
 
 }

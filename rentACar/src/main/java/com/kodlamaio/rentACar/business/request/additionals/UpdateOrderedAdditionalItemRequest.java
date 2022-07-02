@@ -2,6 +2,10 @@ package com.kodlamaio.rentACar.business.request.additionals;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,11 +13,17 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateAdditionalRequest {
+public class UpdateOrderedAdditionalItemRequest {
+	@Min(1)
+	private int id;
+	@Min(1)
 	private int additionalItemId;
+	@Min(1)
 	private int rentalId;
+	@Min(1)
+	@NotNull
 	private int totalDays;
-	private LocalDate pickupDate;
+	@FutureOrPresent
+	private LocalDate pickUpDate;
 	
-
 }

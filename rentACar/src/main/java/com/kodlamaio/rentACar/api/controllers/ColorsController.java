@@ -28,6 +28,12 @@ public class ColorsController {
 
 	@Autowired
 	private ColorService colorService;
+	
+
+	public ColorsController(ColorService colorService) {
+		
+		this.colorService = colorService;
+	}
 
 	@PostMapping("/add")
 	public void add(@RequestBody @Valid CreateColorRequest createColorRequest) {

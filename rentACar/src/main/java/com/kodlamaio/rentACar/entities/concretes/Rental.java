@@ -28,8 +28,8 @@ public class Rental {
 	@Column(name = "id")
 	private int id;
 
-	@Column(name = "pickup_date")
-	private LocalDate pickupDate;
+	@Column(name = "pick_up_date")
+	private LocalDate pickUpDate;
 
 	@Column(name = "return_date")
 	private LocalDate returnDate;
@@ -56,8 +56,8 @@ public class Rental {
 	List<OrderedAdditionalItem> orderedAdditionalItems;
     
     @ManyToOne
-    @JoinColumn(name="user_id")
-    private User user;
+    @JoinColumn(name="customer_id")
+    private Customer customer;
     
     @OneToOne(mappedBy = "rental")
     private Invoice invoice;

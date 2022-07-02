@@ -19,15 +19,20 @@ import com.kodlamaio.rentACar.core.utilities.results.Result;
 import com.kodlamaio.rentACar.core.utilities.results.SuccessDataResult;
 import com.kodlamaio.rentACar.core.utilities.results.SuccessResult;
 import com.kodlamaio.rentACar.dataAccess.abstracts.ColorRepository;
+import com.kodlamaio.rentACar.entities.concretes.Brand;
 import com.kodlamaio.rentACar.entities.concretes.Color;
 
 @Service
 public class ColorManager implements ColorService {
 
-	@Autowired
 	private ColorRepository colorRepository;
-	@Autowired
 	private ModelMapperService modelMapperService;
+	
+	@Autowired
+	public ColorManager(ColorRepository colorRepository, ModelMapperService modelMapperService) {
+		this.colorRepository = colorRepository;
+		this.modelMapperService = modelMapperService;
+	}
 
 	@Override
 	public Result add(CreateColorRequest createColorRequest) {
@@ -43,6 +48,7 @@ public class ColorManager implements ColorService {
 	public Result update(UpdateColorRequest updateColorRequest) {
 
 		checkIfColorExitsByName(updateColorRequest.getName());
+		checkIfColorExistsById(updateColorRequest.getId());
 		Color color = this.modelMapperService.forRequest().map(updateColorRequest, Color.class);
 		this.colorRepository.save(color);
 		return new SuccessResult("UPDATED.COLOR");
@@ -50,7 +56,7 @@ public class ColorManager implements ColorService {
 
 	@Override
 	public Result delete(DeleteColorRequest deleteColorRequest) {
-
+		checkIfColorExistsById(deleteColorRequest.getId());
 		Color color = this.modelMapperService.forRequest().map(deleteColorRequest, Color.class);
 		this.colorRepository.delete(color);
 		return new SuccessResult("DELETED.COLOR");
@@ -58,7 +64,7 @@ public class ColorManager implements ColorService {
 
 	@Override
 	public DataResult<ReadColorResponse> getById(int id) {
-		Color color = this.colorRepository.getById(id);
+		Color color = checkIfColorExistsById(id);
 		ReadColorResponse readColorResponse = this.modelMapperService.forResponse().map(color, ReadColorResponse.class);
 		return new SuccessDataResult<ReadColorResponse>(readColorResponse);
 	}
@@ -77,6 +83,20 @@ public class ColorManager implements ColorService {
 		if (currentColor != null) {
 			throw new BusinessException("COLOR.EXITS");
 		}
+	}
+	private Color checkIfColorExistsById(int id) {
+		Color currentColor;
+		try {
+			currentColor = this.colorRepository.findById(id).get();
+		} catch (Exception e) {
+			throw new BusinessException("COLOR.NOT.EXİSTS");
+		}
+		return currentColor;
+	}
+
+	@Override
+	public Color getColorById(int id) {
+		return this.checkIfColorExistsById(id);
 	}
 
 }

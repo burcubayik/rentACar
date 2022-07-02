@@ -9,6 +9,7 @@ import com.kodlamaio.rentACar.business.response.brands.GetAllBrandsResponse;
 import com.kodlamaio.rentACar.business.response.brands.ReadBrandResponse;
 import com.kodlamaio.rentACar.core.utilities.results.DataResult;
 import com.kodlamaio.rentACar.core.utilities.results.Result;
+import com.kodlamaio.rentACar.entities.concretes.Brand;
 
 public interface BrandService {
 	// Response request pattern
@@ -21,6 +22,8 @@ public interface BrandService {
 	DataResult<ReadBrandResponse> getById(int id);
 
 	DataResult<List<GetAllBrandsResponse>> getAll();
+	
+	public  Brand getBrandById(int id);
 
 	
 

@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.kodlamaio.rentACar.business.request.users.CreateUserRequest;
-import com.kodlamaio.rentACar.business.response.rentals.GetAllRentalResponse;
+import com.kodlamaio.rentACar.business.response.rentals.GetAllRentalsResponse;
 import com.kodlamaio.rentACar.business.response.users.GetAllUserResponse;
 import com.kodlamaio.rentACar.core.utilities.results.DataResult;
 import com.kodlamaio.rentACar.core.utilities.results.Result;
