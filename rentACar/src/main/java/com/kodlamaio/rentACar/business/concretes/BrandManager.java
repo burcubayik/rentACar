@@ -120,4 +120,14 @@ public class BrandManager implements BrandService {
 		
 	}
 
+
+
+
+	@Override
+	public DataResult<ReadBrandResponse> getBrand(int id) {
+		Brand brand = checkIfBrandExistsById(id);
+		ReadBrandResponse readBrandResponse = this.modelMapperService.forResponse().map(brand, ReadBrandResponse.class);
+		return new SuccessDataResult<ReadBrandResponse>(readBrandResponse);
+	}
+
 }

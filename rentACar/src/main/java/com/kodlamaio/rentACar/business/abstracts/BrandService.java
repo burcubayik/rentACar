@@ -25,6 +25,8 @@ public interface BrandService {
 	
 	public  Brand getBrandById(int id);
 
+	DataResult<ReadBrandResponse> getBrand(int id);
+
 	
 
 }
