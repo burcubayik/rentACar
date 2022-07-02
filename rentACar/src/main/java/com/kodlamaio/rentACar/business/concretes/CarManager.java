@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.kodlamaio.rentACar.business.abstracts.BrandService;
@@ -90,12 +91,18 @@ public class CarManager implements CarService {
 
 		return new SuccessDataResult<List<GetAllCarsResponse>>(response);
 	}
+	@Cacheable("cars")
 	@Override
 	public DataResult<List<GetAllCarsResponse>> getByState(int state) {
 		getCarList();
 		List<GetAllCarsResponse> response = getCarList().stream()
 				.map(car -> this.modelMapperService.forResponse().map(car, GetAllCarsResponse.class))
 				.filter(car -> car.getState() == state).collect(Collectors.toList());
+		try {
+			Thread.sleep(1000*4);
+			} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		return new SuccessDataResult<List<GetAllCarsResponse>>(response, "CAR.LISTED");
 	}
 
