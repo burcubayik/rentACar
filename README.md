@@ -38,4 +38,4 @@ Contributions are what make the open source community such an amazing place to b
 Project Link: https://github.com/Burcubayik/rentACar
 ## Acknowledgment
 
-<a href="https://github.com/engindemirog%22%3E">🙏Engin Demiroğ</a>
+<a href="https://github.com/engindemirog">🙏Engin Demiroğ</a>
