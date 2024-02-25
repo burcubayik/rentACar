@@ -1,8 +1,6 @@
 package com.kodlamaio.rentACar.business.response.individualCustomers;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

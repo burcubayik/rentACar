@@ -2,11 +2,7 @@ package com.kodlamaio.rentACar.business.request.rental;
 
 import java.time.LocalDate;
 
-import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

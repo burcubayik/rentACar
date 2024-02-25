@@ -1,6 +1,6 @@
 package com.kodlamaio.rentACar.business.request.invoices;
 
-import javax.validation.constraints.Min;
+import jakarta.validation.constraints.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

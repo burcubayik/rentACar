@@ -1,9 +1,6 @@
 package com.kodlamaio.rentACar.business.response.additionalItems;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
