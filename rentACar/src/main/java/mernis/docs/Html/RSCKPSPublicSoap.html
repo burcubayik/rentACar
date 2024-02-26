@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>RSCKPSPublicSoap class</title>
+
+<link rel='stylesheet' type='text/css' href='../Styles/Blueprint_Styles/Style.css' />
+<link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.8.0/styles/default.min.css">
+<script src="https://unpkg.com/@highlightjs/cdn-assets@11.8.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<style type="text/css">
+    .syntaxhighlighter {
+        overflow-y: hidden !important;
+        overflow-x: auto !important;
+    }
+</style></head>
+    <body>
+        <h2>RSCKPSPublicSoap </h2>
+        
+        <p><strong>SOAP Version: 1.1</strong></p>
+        <p>Main class which you can use to connect to your web service</p>
+        
+        <h3>Important settings</h3>
+        <ul>
+            <li>Timeout - the timeout for network operations, in milliseconds. By default: 60 sec.
+                <br />
+                Example:<br />
+                <pre >
+                    <code class="java">
+RSCKPSPublicSoap service = new RSCKPSPublicSoap(null,"https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx",30000);
+service.TCKimlikNoDogrula();
+                    </code>
+        
+</pre>
+            </li>
+            <li>Url - the web service address. By default it is retrieved from the wsdl file
+                <br />
+                Example:<br />
+                <pre >
+                    <code class="java">
+RSCKPSPublicSoap service = new RSCKPSPublicSoap(null,"https://tckimlik.nvi.gov.tr/Service/KPSPublic.asmx");
+service.TCKimlikNoDogrula();
+                    </code>
+        
+</pre>
+            </li>
+            <li>httpHeaders - allows you to add custom headers to the http requests.
+                <br/>
+                Example:<br/>
+                <pre >
+                    <code class="java">
+RSCKPSPublicSoap service = new RSCKPSPublicSoap();
+service.httpHeaders.add( new HeaderProperty("Authorization","Basic QWxhZGRpbjpPcGVuU2VzYW1l"));
+service.TCKimlikNoDogrula();
+                    </code>
+</pre>
+
+            </li>
+            <li>
+                Enable logging - if you enable logging, all requests/responses will be write to the console (for debugging purposes)
+                <br />
+                Example:<br />
+                <pre >
+                    <code class="java">
+RSCKPSPublicSoap service = new RSCKPSPublicSoap();
+service.enableLogging=true;
+service.TCKimlikNoDogrula();
+                    </code>
+</pre>
+            </li>
+                <li>
+                    createClassesForAny - if true, detect a strong types in <code>any</code> collections
+                    <br />
+                    Example:<br />
+                    <pre><code class="java">service.createClassesForAny=true;</code></pre>
+                </li>
+        </ul>
+        
+        <h3>Methods</h3>
+        <ul>
+                <li><a href="RSCKPSPublicSoap_methods.html#TCKimlikNoDogrula">TCKimlikNoDogrula</a></li>
+        </ul>
+    </body>
+</html>
+
